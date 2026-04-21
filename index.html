@@ -81,55 +81,45 @@
   </div>
 
   <script>
-    const websiteKnowledge = [
-      {
-        keywords: ["admissions", "apply", "application"],
-        answer: "Our admissions information is available on the website admissions page."
-      },
-      {
-        keywords: ["contact", "phone", "email"],
-        answer: "Our contact details are available on the website contact page."
-      },
-      {
-        keywords: ["term dates", "calendar", "holiday"],
-        answer: "Our term dates are available on the website calendar or term dates page."
-      }
-    ];
-
-    const refusalMessage =
-      "Sorry, I can only answer based on information available on this website and its documents.";
+    const WORKER_URL = "YOUR-WORKER-URL-HERE";
 
     const chatForm = document.getElementById("chatForm");
     const userInput = document.getElementById("userInput");
     const chatOutput = document.getElementById("chatOutput");
 
-    function getBotReply(question) {
-      const lowerQuestion = question.toLowerCase();
-
-      for (let item of websiteKnowledge) {
-        for (let keyword of item.keywords) {
-          if (lowerQuestion.includes(keyword)) {
-            return item.answer;
-          }
-        }
-      }
-
-      return refusalMessage;
-    }
-
-    chatForm.addEventListener("submit", function (event) {
+    chatForm.addEventListener("submit", async function (event) {
       event.preventDefault();
 
       const question = userInput.value.trim();
       if (!question) return;
 
-      const botReply = getBotReply(question);
-
       chatOutput.innerText += "\n\nYou: " + question;
-      chatOutput.innerText += "\nBot: " + botReply;
+      chatOutput.innerText += "\nBot: Thinking...";
 
       userInput.value = "";
       userInput.focus();
+
+      try {
+        const response = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ question: question })
+        });
+
+        const data = await response.json();
+
+        chatOutput.innerText = chatOutput.innerText.replace(
+          "Bot: Thinking...",
+          "Bot: " + (data.message || "No reply received.")
+        );
+      } catch (error) {
+        chatOutput.innerText = chatOutput.innerText.replace(
+          "Bot: Thinking...",
+          "Bot: Sorry, there was an error connecting to the server."
+        );
+      }
     });
   </script>
 </body>
