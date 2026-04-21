@@ -17,7 +17,7 @@
       background: white;
       border-radius: 12px;
       padding: 20px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
     }
 
     h1 {
@@ -68,12 +68,19 @@
       type="text"
       id="userInput"
       placeholder="Type your question here"
+      onkeypress="handleKeyPress(event)"
     />
 
     <button onclick="sendMessage()">Send</button>
   </div>
 
   <script>
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        sendMessage();
+      }
+    }
+
     function sendMessage() {
       const input = document.getElementById("userInput");
       const output = document.getElementById("chatOutput");
