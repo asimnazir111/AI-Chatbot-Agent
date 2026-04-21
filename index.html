@@ -91,8 +91,10 @@
       const question = userInput.value.trim();
       if (!question) return;
 
+      const botReply = "Sorry, I can only answer based on information available on this website and its documents.";
+
       chatOutput.innerText += "\n\nYou: " + question;
-      chatOutput.innerText += "\nBot: This is a prototype. Real AI reply will come later.";
+      chatOutput.innerText += "\nBot: " + botReply;
 
       userInput.value = "";
       userInput.focus();
