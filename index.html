@@ -4,9 +4,88 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Website Helper</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f5f7fb;
+    }
+
+    .chat-box {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    #chatOutput {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      min-height: 250px;
+      padding: 15px;
+      background: #fafafa;
+      margin-bottom: 15px;
+      white-space: pre-line;
+    }
+
+    #userInput {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #4f46e5;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #4338ca;
+    }
+  </style>
 </head>
 <body>
-  <h1>AI Website Helper</h1>
-  <p>This is my first chatbot prototype page.</p>
+  <div class="chat-box">
+    <h1>AI Website Helper</h1>
+    <p>Ask a question about the website content.</p>
+
+    <div id="chatOutput">Bot: Hello, I am your website helper.</div>
+
+    <input
+      type="text"
+      id="userInput"
+      placeholder="Type your question here"
+    />
+
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const output = document.getElementById("chatOutput");
+      const question = input.value.trim();
+
+      if (!question) return;
+
+      output.innerText += "\n\nYou: " + question;
+      output.innerText += "\nBot: This is a prototype. Real AI reply will come later.";
+
+      input.value = "";
+    }
+  </script>
 </body>
 </html>
