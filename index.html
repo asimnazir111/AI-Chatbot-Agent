@@ -102,7 +102,7 @@
       try {
         const response = await fetch(
           WORKER_URL + "?question=" + encodeURIComponent(question)
-        });
+        );
 
         const data = await response.json();
 
